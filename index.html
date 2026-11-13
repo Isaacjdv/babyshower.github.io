@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#fde8f1" />
+  <title>Lillan & Cristian • El gran secreto</title>
+  <meta name="description" content="Estás invitado al Baby Shower & Gender Reveal de Lillan & Cristian. ¿Niño o niña? ¡Ven a descubrirlo!" />
+  <meta property="og:title" content="🍼 Baby Shower & Gender Reveal · Lillan & Cristian" />
+  <meta property="og:description" content="¿Niño o niña? Vota, juega y descúbrelo con nosotros el 17 de noviembre." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍼</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div id="loader"><div class="loader-inner"><div class="loader-balloon">🎈</div><p>Preparando el secreto...</p></div></div>
+
+  <div id="nameModal" class="modal hidden">
+    <div class="modal-card">
+      <div class="modal-icon">🧸</div>
+      <h2>¡Bienvenido/a!</h2>
+      <p>¿Cómo te llamas? Así te saludaremos y prepararemos tu pase de invitado.</p>
+      <input type="text" id="visitorNameInput" class="input" placeholder="Tu nombre..." maxlength="30" autocomplete="name" />
+      <button class="btn btn-primary" id="saveNameBtn">Entrar a la fiesta 🎉</button>
+    </div>
+  </div>
+
+  <canvas id="confettiCanvas"></canvas>
+  <div id="balloons"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="syncBanner" class="sync-banner" hidden></div>
+
+  <!-- DOCK flotante -->
+  <div class="dock" id="dock">
+    <button id="musicBtn" title="Música de cuna" aria-pressed="false">🎵</button>
+    <button id="heartBtn" title="Escuchar el latido" aria-pressed="false">💓</button>
+    <button id="themeBtn" title="Modo noche">🌙</button>
+    <button id="popCount" title="Globos reventados">🎈 <b id="popNum">0</b></button>
+  </div>
+
+  <nav class="nav" id="nav">
+    <a class="nav-logo" href="#inicio">L <i>&amp;</i> C</a>
+    <div class="nav-links" id="navLinks">
+      <a href="#inicio">Inicio</a><a href="#bebe">Bebé</a><a href="#fiesta">Fiesta</a><a href="#juegos">Juegos</a>
+      <a href="#regalos">Regalos</a><a href="#fotos">Fotos</a><a href="#revelar">Revelación</a><a href="#mensajes">Mensajes</a><a href="#rsvp">RSVP</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menú">☰</button>
+  </nav>
+
+  <header class="hero" id="inicio">
+    <div class="stars"></div><div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
+    <div class="hero-content">
+      <span class="badge">✦ Baby Shower &amp; Gender Reveal ✦</span>
+      <h1 id="greetingTitle">El gran secreto<br>está por revelarse</h1>
+      <p class="names">Lillan <span>&amp;</span> Cristian</p>
+      <p class="subtitle" id="greetingSubtitle">Te invitamos a uno de los momentos más especiales de nuestras vidas.<br><strong>¿Niño o niña?</strong> Solo el tiempo (y tú) lo sabrán.</p>
+      <div class="mini-cd">
+        <div><b id="days">00</b><small>días</small></div><div><b id="hours">00</b><small>horas</small></div>
+        <div><b id="minutes">00</b><small>min</small></div><div><b id="seconds">00</b><small>seg</small></div>
+      </div>
+      <div class="hero-btns">
+        <a href="#rsvp" class="btn btn-primary">Confirmar asistencia</a>
+        <a href="#juegos" class="btn btn-ghost">¡A jugar! 🎲</a>
+      </div>
+      <p class="hint">Psst… prueba a reventar los globos que flotan 🎈</p>
+    </div>
+    <div class="scroll-hint">↓</div>
+  </header>
+
+  <!-- PASE -->
+  <section class="sec tint-butter" id="pase">
+    <div class="wrap narrow">
+      <div class="ticket reveal" id="ticket">
+        <div class="ticket-main">
+          <small>PASE DE INVITADO</small>
+          <h3 id="ticketName">Invitado/a especial</h3>
+          <p>Baby Shower &amp; Gender Reveal<br><b>Lillan &amp; Cristian</b></p>
+          <div class="ticket-meta"><span>📅 17 nov 2026</span><span>🕓 16:00</span><span id="ticketTable">🪑 Mesa Dulce Espera</span></div>
+        </div>
+        <div class="ticket-stub"><small>N°</small><b id="ticketNo">000</b><div class="barcode"></div></div>
+      </div>
+      <div class="center share-row reveal">
+        <a class="btn btn-ghost" id="waShare" target="_blank" rel="noopener">Invitar por WhatsApp 💬</a>
+        <button class="btn btn-ghost" id="shareBtn">Compartir 🔗</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEBÉ -->
+  <section id="bebe" class="sec tint-blue">
+    <div class="wrap narrow">
+      <h2 class="section-title reveal">El bebé está creciendo</h2>
+      <p class="section-subtitle reveal">Hoy tiene <strong id="currentWeek">20</strong> semanas</p>
+
+      <div class="baby-card card reveal">
+        <div class="baby-visual">
+          <div class="baby-bubble" id="babyBubble"><span id="babyEmoji">🍌</span></div>
+          <div class="week-badge">Semana <span id="weekNumber">20</span></div>
+        </div>
+        <div class="baby-info">
+          <h3 id="babySizeTitle">Como un plátano</h3>
+          <p id="babySizeDesc">≈ 25 cm</p>
+          <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+          <p class="progress-label"><span id="progressPercent">50</span>% del embarazo · faltan <b id="daysToDue">—</b> días</p>
+        </div>
+      </div>
+
+      <div class="ai-box card reveal">
+        <div class="ai-header"><span class="ai-dot"></span><span>Dato curioso (IA)</span><button type="button" class="round-btn" id="aiNextBtn" title="Otro dato">↻</button></div>
+        <p id="aiMessage" class="ai-text">…</p>
+      </div>
+
+      <div class="timeline-section reveal">
+        <h3 class="timeline-title">Línea de tiempo del embarazo</h3>
+        <p class="timeline-hint">Toca una semana para ver qué pasa</p>
+        <div class="weeks-timeline" id="weeksTimeline"></div>
+        <div class="week-detail card" id="weekDetail"></div>
+      </div>
+
+      <div class="duo">
+        <div class="card pad reveal">
+          <h3>💌 Carta del bebé</h3>
+          <p class="muted">El bebé quiere escribirte algo…</p>
+          <button class="btn btn-primary btn-sm" id="letterBtn">Recibir mi carta</button>
+          <div class="paper" id="letterBox" hidden></div>
+        </div>
+        <div class="card pad reveal">
+          <h3>🔮 Horóscopo del bebé</h3>
+          <p class="muted" id="zodiacLine">Calculando su signo…</p>
+          <button class="btn btn-primary btn-sm" id="horoBtn">Leer su destino</button>
+          <div class="paper" id="horoBox" hidden></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PATADITAS -->
+  <section id="patadas" class="sec tint-mint">
+    <div class="wrap narrow center">
+      <h2 class="section-title reveal">¡Siente las pataditas!</h2>
+      <p class="section-subtitle reveal">Toca la pancita. Entre todos llevamos…</p>
+      <div class="kick-total reveal"><b id="kickNum">0</b> pataditas 🦶</div>
+      <div class="bump reveal" id="bump" role="button" tabindex="0" aria-label="Tocar la pancita">
+        <div class="bump-belly"><div class="bump-foot" id="bumpFoot">🦶</div><div class="bump-navel"></div></div>
+        <div class="bump-ring"></div>
+      </div>
+      <p class="muted" id="kickMsg">Dale un toquecito…</p>
+      <div class="kick-goals" id="kickGoals"></div>
+    </div>
+  </section>
+
+  <!-- FIESTA -->
+  <section id="fiesta" class="sec tint-pink">
+    <div class="wrap">
+      <h2 class="section-title reveal">La fiesta</h2>
+      <p class="section-subtitle reveal">Todo lo que necesitas saber</p>
+      <div class="details-grid">
+        <div class="detail-card card reveal"><div class="detail-icon">📅</div><h3>Fecha</h3><p>Martes, 17 de noviembre 2026</p></div>
+        <div class="detail-card card reveal"><div class="detail-icon">🕓</div><h3>Hora</h3><p>16:00 hrs</p></div>
+        <div class="detail-card card reveal"><div class="detail-icon">📍</div><h3>Lugar</h3><p id="placeName">Casa</p><small id="placeAddr"></small><br><a class="mini-link" id="mapLink" target="_blank" rel="noopener">Cómo llegar →</a></div>
+        <div class="detail-card card reveal"><div class="detail-icon" id="weatherIcon">⛅</div><h3>Clima del día</h3><p id="weatherText">Se mostrará cuando se acerque la fecha</p></div>
+      </div>
+      <div class="center reveal"><button class="btn btn-primary" id="calendarBtn">📲 Añadir a mi calendario</button></div>
+
+      <h3 class="sub-title reveal">Agenda del gran día</h3>
+      <div class="agenda reveal" id="agenda"></div>
+
+      <h3 class="sub-title reveal">Código de vestimenta · Pastel casual elegante</h3>
+      <div class="palette reveal">
+        <span style="--c:#f8c8dc" title="Rosa"></span><span style="--c:#bde0fe" title="Celeste"></span><span style="--c:#c9f0dd" title="Menta"></span>
+        <span style="--c:#e4d4f4" title="Lila"></span><span style="--c:#fff1b8" title="Mantequilla"></span><span style="--c:#ffd9c7" title="Durazno"></span>
+      </div>
+      <div class="dress-grid">
+        <div class="dress-card card reveal"><div class="emoji">👔</div><h3>Caballeros</h3><ul><li>Camisa o polo pastel</li><li>Pantalón casual o chino</li><li>Evitar negro total</li></ul></div>
+        <div class="dress-card card reveal"><div class="emoji">👗</div><h3>Damas</h3><ul><li>Vestido o conjunto pastel</li><li>Rosa, celeste, lila, menta</li><li>Evitar colores muy oscuros</li></ul></div>
+        <div class="dress-card card reveal"><div class="emoji">✨</div><h3>Idea especial</h3><p>Trae un detalle en <b class="t-pink">rosa</b> o <b class="t-blue">celeste</b>… sin revelar tu apuesta 😉</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JUEGOS -->
+  <section id="juegos" class="sec tint-butter">
+    <div class="wrap">
+      <h2 class="section-title reveal">Zona de juegos</h2>
+      <p class="section-subtitle reveal">Apuesta, sugiere, adivina y gana el título de <b>Mejor Tío/a</b> 🏆</p>
+
+      <div class="games-grid">
+        <!-- Voto género -->
+        <div class="card pad game reveal">
+          <h3>1 · ¿Niño o niña?</h3>
+          <div class="vote-btns">
+            <button class="vote-btn boy" data-vote="niño"><span>💙</span>Niño</button>
+            <button class="vote-btn girl" data-vote="niña"><span>💗</span>Niña</button>
+          </div>
+          <div class="vbar"><label>💙 Niño <b id="vBoyN">0</b></label><div class="track"><div class="fill boy" id="vBoy"></div></div></div>
+          <div class="vbar"><label>💗 Niña <b id="vGirlN">0</b></label><div class="track"><div class="fill girl" id="vGirl"></div></div></div>
+          <p class="form-note" id="voteNote"></p>
+        </div>
+
+        <!-- Nombres -->
+        <div class="card pad game reveal">
+          <h3>2 · El nombre del bebé</h3>
+          <form class="inline-form" id="nameForm">
+            <input class="input" id="nameInput" placeholder="Sugiere un nombre" maxlength="24" required />
+            <button class="btn btn-primary btn-sm">Añadir</button>
+          </form>
+          <div class="chips" id="aiKind">
+            <small class="muted">Ideas con IA:</small>
+            <button class="chip" data-kind="niño">💙 Niño</button><button class="chip" data-kind="niña">💗 Niña</button><button class="chip" data-kind="unisex">🌈 Unisex</button>
+          </div>
+          <div class="chips" id="aiNames"></div>
+          <ol class="name-board" id="nameBoard"><li class="muted">Aún no hay nombres… ¡sé el primero!</li></ol>
+        </div>
+
+        <!-- Predicción -->
+        <div class="card pad game reveal">
+          <h3>3 · Adivina cuándo nace</h3>
+          <form class="stack" id="guessForm">
+            <label>Fecha de nacimiento <input class="input" type="date" id="gDate" required min="2026-11-18" max="2027-04-30" /></label>
+            <label>Peso: <b id="gWeightV">3.3</b> kg <input type="range" id="gWeight" min="2" max="5" step="0.1" value="3.3" /></label>
+            <label>Talla: <b id="gLenV">50</b> cm <input type="range" id="gLen" min="44" max="56" step="1" value="50" /></label>
+            <button class="btn btn-primary btn-sm">Guardar mi predicción</button>
+          </form>
+          <div class="guess-stats" id="guessStats"></div>
+        </div>
+
+        <!-- Bingo -->
+        <div class="card pad game reveal">
+          <h3>4 · Bingo del baby shower</h3>
+          <p class="muted">Marca lo que veas en la fiesta. ¡Una línea y ganas confeti!</p>
+          <div class="bingo" id="bingo"></div>
+          <div class="center"><button class="btn btn-ghost btn-sm" id="bingoReset">Nuevo cartón 🔄</button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REGALOS -->
+  <section id="regalos" class="sec tint-lilac">
+    <div class="wrap">
+      <h2 class="section-title reveal">Lista de regalos</h2>
+      <p class="section-subtitle reveal">Tu presencia es el mejor regalo. Si quieres aportar, reserva uno y así no se repite 🎁</p>
+      <div class="gifts-grid" id="giftGrid"></div>
+      <p class="center muted reveal" style="margin-top:1.2rem">💙 Si es niño, los pañales serán estrella · 💗 Si es niña, los pañitos húmedos</p>
+
+      <h2 class="section-title reveal" style="margin-top:4.5rem">Nuestra historia</h2>
+      <p class="section-subtitle reveal">Un poco de nosotros antes del gran día</p>
+      <div class="story-timeline">
+        <div class="story-item reveal"><div class="story-dot"></div><h3>El comienzo</h3><p>Todo empezó con una mirada, una sonrisa y la certeza de que algo especial estaba naciendo entre nosotros.</p></div>
+        <div class="story-item reveal"><div class="story-dot"></div><h3>La gran noticia</h3><p>Cuando descubrimos que seríamos papás, el mundo se detuvo por un segundo… y luego se llenó de emoción, nervios y mucho amor.</p></div>
+        <div class="story-item reveal"><div class="story-dot"></div><h3>El gran secreto</h3><p>Decidimos guardar el género hasta este momento especial. Queremos compartirlo contigo de la forma más mágica posible.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOTOS + PHOTOBOOTH -->
+  <section id="fotos" class="sec tint-mint">
+    <div class="wrap">
+      <h2 class="section-title reveal">Nuestro proceso</h2>
+      <p class="section-subtitle reveal">Momentos que guardamos con el corazón <small>(pon tus fotos en la carpeta /img)</small></p>
+      <div class="photos-grid" id="photosGrid"></div>
+
+      <h2 class="section-title reveal" style="margin-top:4.5rem">📸 Cabina de fotos</h2>
+      <p class="section-subtitle reveal">Súbete una selfie, ponle marco de baby shower y descárgala</p>
+      <div class="booth card reveal">
+        <div class="booth-ctrl">
+          <label class="btn btn-primary btn-sm">📷 Elegir foto<input type="file" id="boothFile" accept="image/*" hidden /></label>
+          <div class="chips" id="frames">
+            <button class="chip on" data-f="rosa">Rosa</button><button class="chip" data-f="celeste">Celeste</button><button class="chip" data-f="menta">Menta</button><button class="chip" data-f="lila">Lila</button>
+          </div>
+          <button class="btn btn-ghost btn-sm" id="boothSave" disabled>⬇ Descargar</button>
+          <button class="btn btn-ghost btn-sm" id="boothShare" disabled hidden>Compartir</button>
+        </div>
+        <canvas id="boothCanvas" width="720" height="900"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVELACIÓN -->
+  <section class="sec tint-pink" id="revelar">
+    <div class="wrap narrow center">
+      <h2 class="section-title reveal">El momento de la verdad</h2>
+      <p class="section-subtitle reveal">La caja se abrirá el 17 de noviembre</p>
+      <div class="reveal-cd card reveal"><p>La caja se abre en</p>
+        <div class="rcd"><span id="rDays">00</span>d <span id="rHours">00</span>h <span id="rMinutes">00</span>m <span id="rSeconds">00</span>s</div></div>
+      <div class="mystery-box" id="mysteryBox">
+        <div class="mystery-front" id="mysteryFront">
+          <div class="gift-lid" id="giftIcon">🎁</div>
+          <h3>Secreto sellado</h3>
+          <p id="lockMessage">Bloqueado hasta el 17 de noviembre 2026</p>
+          <button class="btn btn-primary" id="revealBtn" disabled>Aún no se puede abrir</button>
+        </div>
+        <div class="count321" id="count321" hidden></div>
+        <div class="mystery-result" id="mysteryResult">
+          <div class="gender-emoji" id="genderEmoji">?</div>
+          <div class="gender-text" id="genderText">¡Es un secreto!</div>
+          <p class="result-msg" id="resultMsg"></p>
+          <p class="result-stat" id="resultStat"></p>
+        </div>
+      </div>
+      <p class="demo-hint" id="demoHint" hidden>Modo demo activo (?demo=1)</p>
+    </div>
+  </section>
+
+  <!-- MENSAJES -->
+  <section id="mensajes" class="sec tint-blue">
+    <div class="wrap narrow">
+      <h2 class="section-title reveal">Mensajes de cariño</h2>
+      <p class="section-subtitle reveal">Todos los invitados los verán. Los que escribe la IA llevan el sello ✨</p>
+      <div class="messages-wall card reveal" id="messagesWall"><p class="no-messages" id="noMessages">Cargando mensajes...</p></div>
+      <form class="message-form card reveal" id="messageForm">
+        <div class="seg" id="msgKind">
+          <button type="button" class="on" data-k="muro">💬 Al muro</button>
+          <button type="button" data-k="capsula">⏳ Cápsula del tiempo</button>
+        </div>
+        <p class="muted small-note" id="kindNote">Un mensaje para todos los invitados.</p>
+        <div class="form-group"><label for="msgName">Tu nombre</label><input class="input" id="msgName" required maxlength="40" /></div>
+        <div class="form-group">
+          <label for="msgText">Tu mensaje</label>
+          <textarea class="input" id="msgText" rows="3" placeholder="Escríbelo tú… o pídele ayuda a la IA ✨" required maxlength="280"></textarea>
+          <small class="count" id="msgCount">0/280</small>
+        </div>
+        <div class="ai-helper">
+          <span class="muted">✨ Que la IA lo escriba:</span>
+          <button type="button" class="chip" data-tone="tierno">Tierno</button><button type="button" class="chip" data-tone="divertido">Divertido</button>
+          <button type="button" class="chip" data-tone="poético">Poético</button><button type="button" class="chip" data-tone="corto">Cortito</button>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full" id="msgSubmitBtn">Publicar mensaje 💌</button>
+        <p class="form-note" id="msgNote"></p>
+      </form>
+      <div class="baby-reply" id="babyReply" hidden></div>
+    </div>
+  </section>
+
+  <!-- RSVP -->
+  <section id="rsvp" class="sec tint-lilac">
+    <div class="wrap narrow">
+      <h2 class="section-title reveal">¿Nos acompañas?</h2>
+      <p class="section-subtitle reveal"><b id="rsvpCount">0</b> invitados confirmados · <b id="rsvpPeople">0</b> personas</p>
+      <form class="rsvp-form card reveal" id="rsvpForm">
+        <div class="form-row">
+          <div class="form-group"><label for="guestName">Tu nombre</label><input class="input" id="guestName" placeholder="Nombre completo" required /></div>
+          <div class="form-group"><label for="guestCount">Personas</label><input class="input" type="number" id="guestCount" min="1" max="10" value="1" /></div>
+        </div>
+        <div class="form-group"><label>¿Asistirás?</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="attend" value="si" checked /> Sí, ahí estaré</label>
+            <label class="radio-label"><input type="radio" name="attend" value="no" /> No podré ir</label>
+          </div></div>
+        <div class="form-group"><label for="guestMsg">Mensaje (opcional)</label><textarea class="input" id="guestMsg" rows="2" placeholder="Alergias, un detalle, un mensaje…"></textarea></div>
+        <button class="btn btn-primary btn-full" id="rsvpSubmitBtn">Enviar confirmación</button>
+        <p class="form-note" id="formNote"></p>
+        <a class="btn btn-ghost btn-full" id="rsvpWa" target="_blank" rel="noopener" hidden>Avisar también por WhatsApp 💬</a>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-hearts">♥ ♥ ♥</div>
+    <p>Hecho con amor para <strong>Lillan &amp; Cristian</strong></p>
+    <p class="footer-sub">Gracias por ser parte de este momento único · <a href="admin.html">admin</a></p>
+    <p class="footer-sub">Truco: prueba el código Konami ↑↑↓↓←→←→BA</p>
+  </footer>
+
+  <div id="lightbox" class="lightbox" hidden><img alt="" /><button aria-label="Cerrar">✕</button></div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
