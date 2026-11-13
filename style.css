@@ -2753,3 +2753,118 @@ body.dark footer p {
     padding: 1.2rem;
   }
 }
+
+/* ============================================================
+   INVITADOS CONFIRMADOS
+============================================================ */
+
+.confirmed-guests {
+  margin: 2rem 0;
+  padding: 1.3rem;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 10px 35px rgba(80, 50, 100, 0.08);
+}
+
+.confirmed-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.confirmed-icon {
+  width: 55px;
+  height: 55px;
+  display: grid;
+  place-items: center;
+  font-size: 1.8rem;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.confirmed-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.confirmed-header p {
+  margin: 0.2rem 0 0;
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+.guests-list {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.confirmed-guest {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  padding: 1rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.85);
+  transition: transform 0.2s ease;
+}
+
+.confirmed-guest:hover {
+  transform: translateY(-2px);
+}
+
+.guest-avatar {
+  width: 45px;
+  height: 45px;
+  min-width: 45px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #fde8f1;
+  font-size: 1.4rem;
+}
+
+.guest-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.guest-info h4 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.guest-people {
+  display: inline-block;
+  margin-top: 0.25rem;
+  font-size: 0.82rem;
+  opacity: 0.75;
+}
+
+.guest-message {
+  margin: 0.65rem 0 0;
+  padding: 0.7rem 0.85rem;
+  border-left: 3px solid #e9a8c5;
+  border-radius: 8px;
+  background: rgba(253, 232, 241, 0.45);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.no-guests {
+  text-align: center;
+  padding: 1.5rem;
+  opacity: 0.65;
+}
+
+@media (max-width: 600px) {
+
+  .confirmed-guests {
+    padding: 1rem;
+  }
+
+  .confirmed-header {
+    align-items: flex-start;
+  }
+
+}

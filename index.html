@@ -337,25 +337,48 @@
   </section>
 
   <!-- RSVP -->
+   <!-- RSVP -->
   <section id="rsvp" class="sec tint-lilac">
     <div class="wrap narrow">
       <h2 class="section-title reveal">¿Nos acompañas?</h2>
-      <p class="section-subtitle reveal"><b id="rsvpCount">0</b> invitados confirmados · <b id="rsvpPeople">0</b> personas</p>
+      <p class="section-subtitle reveal">
+        <b id="rsvpCount">0</b> invitados confirmados · <b id="rsvpPeople">0</b> personas
+      </p>
+
       <form class="rsvp-form card reveal" id="rsvpForm">
         <div class="form-row">
-          <div class="form-group"><label for="guestName">Tu nombre</label><input class="input" id="guestName" placeholder="Nombre completo" required /></div>
-          <div class="form-group"><label for="guestCount">Personas</label><input class="input" type="number" id="guestCount" min="1" max="10" value="1" /></div>
+          <div class="form-group">
+            <label for="guestName">Tu nombre</label>
+            <input class="input" id="guestName" placeholder="Nombre completo" required />
+          </div>
+          <div class="form-group">
+            <label for="guestCount">Personas</label>
+            <input class="input" type="number" id="guestCount" min="1" max="10" value="1" />
+          </div>
         </div>
-        <div class="form-group"><label>¿Asistirás?</label>
+        <div class="form-group">
+          <label>¿Asistirás?</label>
           <div class="radio-group">
             <label class="radio-label"><input type="radio" name="attend" value="si" checked /> Sí, ahí estaré</label>
             <label class="radio-label"><input type="radio" name="attend" value="no" /> No podré ir</label>
-          </div></div>
-        <div class="form-group"><label for="guestMsg">Mensaje (opcional)</label><textarea class="input" id="guestMsg" rows="2" placeholder="Alergias, un detalle, un mensaje…"></textarea></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="guestMsg">Mensaje (opcional)</label>
+          <textarea class="input" id="guestMsg" rows="2" placeholder="Alergias, un detalle, un mensaje…"></textarea>
+        </div>
         <button class="btn btn-primary btn-full" id="rsvpSubmitBtn">Enviar confirmación</button>
         <p class="form-note" id="formNote"></p>
         <a class="btn btn-ghost btn-full" id="rsvpWa" target="_blank" rel="noopener" hidden>Avisar también por WhatsApp 💬</a>
       </form>
+
+      <!-- Lista de invitados confirmados -->
+      <div class="confirmed-guests card reveal" style="margin-top:2rem">
+        <h3 style="margin:0 0 1rem;text-align:center">Invitados confirmados</h3>
+        <div id="guestsList">
+          <p class="no-guests">Aún no hay invitados confirmados 💌</p>
+        </div>
+      </div>
     </div>
   </section>
 
